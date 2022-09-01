@@ -1,4 +1,4 @@
-Dice roller app [Work in progress 🚧]
+Dice roller app
 =======================================
 
 Interactive Dice Roller app that lets users roll a dice and then shows the result.
