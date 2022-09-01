@@ -18,7 +18,7 @@ package com.example.diceroller;
 
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Set a click listener on the button to roll the dice when the user taps the button
         rollButton.setOnClickListener(v -> rollDice());
+
+        // Do a dice roll when the app starts
+        rollDice();
     }
 
     /**
@@ -50,8 +53,36 @@ public class MainActivity extends AppCompatActivity {
         Dice dice = new Dice(6);
         int diceRoll = dice.roll();
 
-        // Update the screen with the dice roll
-        TextView resultTextView = findViewById(R.id.textView);
-        resultTextView.setText(String.valueOf(diceRoll));
+        // Find the ImageView in the layout
+        ImageView diceImage = findViewById(R.id.imageView);
+
+        // Determine which drawable resource ID to use based on the dice roll
+        int drawableResource;
+        switch (diceRoll) {
+            case 1:
+                drawableResource = R.drawable.dice_1;
+                break;
+            case 2:
+                drawableResource = R.drawable.dice_2;
+                break;
+            case 3:
+                drawableResource = R.drawable.dice_3;
+                break;
+            case 4:
+                drawableResource = R.drawable.dice_4;
+                break;
+            case 5:
+                drawableResource = R.drawable.dice_5;
+                break;
+            default:
+                drawableResource = R.drawable.dice_6;
+                break;
+        }
+
+        // Update the ImageView with the correct drawable resource ID
+        diceImage.setImageResource(drawableResource);
+
+        // Update the content description
+        diceImage.setContentDescription(String.valueOf(diceRoll));
     }
 }
