@@ -16,14 +16,73 @@
 
 package com.example.diceroller;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
+import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * This activity allows the user to roll a dice and view the result
+ * on the screen.
+ */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * This method is called when the Activity is created.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Find the Button in the layout
+        Button rollButton = findViewById(R.id.button);
+
+        // Set a click listener on the button to roll the dice when the user taps the button
+        rollButton.setOnClickListener(v -> rollDice());
+
+        // Do a dice roll when the app starts
+        rollDice();
+    }
+
+    /**
+     * Roll the dice and update the screen with the result.
+     */
+    private void rollDice() {
+        // Create new Dice object with 6 sides and roll it
+        Dice dice = new Dice(6);
+        int diceRoll = dice.roll();
+
+        // Find the ImageView in the layout
+        ImageView diceImage = findViewById(R.id.imageView);
+
+        // Determine which drawable resource ID to use based on the dice roll
+        int drawableResource;
+        switch (diceRoll) {
+            case 1:
+                drawableResource = R.drawable.dice_1;
+                break;
+            case 2:
+                drawableResource = R.drawable.dice_2;
+                break;
+            case 3:
+                drawableResource = R.drawable.dice_3;
+                break;
+            case 4:
+                drawableResource = R.drawable.dice_4;
+                break;
+            case 5:
+                drawableResource = R.drawable.dice_5;
+                break;
+            default:
+                drawableResource = R.drawable.dice_6;
+                break;
+        }
+
+        // Update the ImageView with the correct drawable resource ID
+        diceImage.setImageResource(drawableResource);
+
+        // Update the content description
+        diceImage.setContentDescription(String.valueOf(diceRoll));
     }
 }
